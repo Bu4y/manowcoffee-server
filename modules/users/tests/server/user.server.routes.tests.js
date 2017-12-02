@@ -77,39 +77,6 @@ describe('User CRUD tests', function () {
       });
   });
 
-  it('should be able to login successfully and logout successfully', function (done) {
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        // Logout
-        agent.get('/api/auth/signout')
-          .expect(302)
-          .end(function (signoutErr, signoutRes) {
-            if (signoutErr) {
-              return done(signoutErr);
-            }
-
-            signoutRes.redirect.should.equal(true);
-
-            // NodeJS v4 changed the status code representation so we must check
-            // before asserting, to be comptabile with all node versions.
-            if (process.version.indexOf('v4') === 0) {
-              signoutRes.text.should.equal('Found. Redirecting to /');
-            } else {
-              signoutRes.text.should.equal('Moved Temporarily. Redirecting to /');
-            }
-
-            return done();
-          });
-      });
-  });
-
   it('should not be able to retrieve a list of users if not admin', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
@@ -844,35 +811,6 @@ describe('User CRUD tests', function () {
 
         // Call the assertion callback
         return done();
-      });
-  });
-
-  it('should be able to change profile picture if signed in', function (done) {
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        agent.post('/api/users/picture')
-          .attach('newProfilePicture', './modules/users/client/img/profile/default.png')
-          .send(credentials)
-          .expect(200)
-          .end(function (userInfoErr, userInfoRes) {
-            // Handle change profile picture error
-            if (userInfoErr) {
-              return done(userInfoErr);
-            }
-
-            userInfoRes.body.should.be.instanceof(Object);
-            userInfoRes.body.profileImageURL.should.be.a.String();
-            userInfoRes.body._id.should.be.equal(String(user._id));
-
-            return done();
-          });
       });
   });
 
