@@ -207,6 +207,114 @@ describe('Product CRUD tests', function () {
       });
   });
 
+  it('should be able to get popular Product list', function (done) {
+
+    var productObj = new Product(product);
+    productObj.count = 7;
+    var productObj2 = new Product(product);
+    productObj2.count = 5;
+    var productObj3 = new Product(product);
+    productObj3.category = 'เย็น';
+    var productObj4 = new Product(product);
+    productObj4.category = 'เย็น';
+    var productObj5 = new Product(product);
+    productObj5.category = 'ปั่น';
+    var productObj6 = new Product(product);
+    productObj6.category = 'ปั่น';
+
+    productObj.save();
+    productObj2.save();
+    productObj3.save();
+    productObj4.save();
+    productObj5.save();
+    productObj6.save();
+
+    agent.get('/api/products')
+      .end(function (productsGetErr, productsGetRes) {
+        // Handle Products save error
+        if (productsGetErr) {
+          return done(productsGetErr);
+        }
+
+        // Get Products list
+        var product = productsGetRes.body;
+
+        // Set assertions
+        (product.hot.length).should.match(2);
+        (product.hot[0].name).should.match(productObj.name);
+        (product.hot[0].detail).should.match(productObj.detail);
+        (product.hot[0].image).should.match(productObj.image);
+        (product.hot[0].size[0].name).should.match(productObj.size[0].name);
+        (product.hot[0].size[0].price).should.match(productObj.size[0].price);
+        (product.hot[0].size[1].name).should.match(productObj.size[1].name);
+        (product.hot[0].size[1].price).should.match(productObj.size[1].price);
+        (product.hot[0].size[2].name).should.match(productObj.size[2].name);
+        (product.hot[0].size[2].price).should.match(productObj.size[2].price);
+        (product.hot[0].count).should.match(7);
+        (product.hot[0].category).should.match(productObj.category);
+        (product.hot[1].name).should.match(productObj2.name);
+        (product.hot[1].detail).should.match(productObj2.detail);
+        (product.hot[1].image).should.match(productObj2.image);
+        (product.hot[1].size[0].name).should.match(productObj2.size[0].name);
+        (product.hot[1].size[0].price).should.match(productObj2.size[0].price);
+        (product.hot[1].size[1].name).should.match(productObj2.size[1].name);
+        (product.hot[1].size[1].price).should.match(productObj2.size[1].price);
+        (product.hot[1].size[2].name).should.match(productObj2.size[2].name);
+        (product.hot[1].size[2].price).should.match(productObj2.size[2].price);
+        (product.hot[1].count).should.match(5);
+        (product.hot[1].category).should.match(productObj2.category);
+
+        (product.iced.length).should.match(2);
+        (product.iced[0].name).should.match(productObj3.name);
+        (product.iced[0].detail).should.match(productObj3.detail);
+        (product.iced[0].image).should.match(productObj3.image);
+        (product.iced[0].size[0].name).should.match(productObj3.size[0].name);
+        (product.iced[0].size[0].price).should.match(productObj3.size[0].price);
+        (product.iced[0].size[1].name).should.match(productObj3.size[1].name);
+        (product.iced[0].size[1].price).should.match(productObj3.size[1].price);
+        (product.iced[0].size[2].name).should.match(productObj3.size[2].name);
+        (product.iced[0].size[2].price).should.match(productObj3.size[2].price);
+        (product.iced[0].count).should.match(0);
+        (product.iced[0].category).should.match(productObj3.category);
+        (product.iced[1].name).should.match(productObj4.name);
+        (product.iced[1].detail).should.match(productObj4.detail);
+        (product.iced[1].image).should.match(productObj4.image);
+        (product.iced[1].size[0].name).should.match(productObj4.size[0].name);
+        (product.iced[1].size[0].price).should.match(productObj4.size[0].price);
+        (product.iced[1].size[1].name).should.match(productObj4.size[1].name);
+        (product.iced[1].size[1].price).should.match(productObj4.size[1].price);
+        (product.iced[1].size[2].name).should.match(productObj4.size[2].name);
+        (product.iced[1].size[2].price).should.match(productObj4.size[2].price);
+        (product.iced[1].count).should.match(0);
+        (product.iced[1].category).should.match(productObj4.category);
+
+        (product.frappe.length).should.match(2);
+        (product.frappe[0].name).should.match(productObj5.name);
+        (product.frappe[0].detail).should.match(productObj5.detail);
+        (product.frappe[0].image).should.match(productObj5.image);
+        (product.frappe[0].size[0].name).should.match(productObj5.size[0].name);
+        (product.frappe[0].size[0].price).should.match(productObj5.size[0].price);
+        (product.frappe[0].size[1].name).should.match(productObj5.size[1].name);
+        (product.frappe[0].size[1].price).should.match(productObj5.size[1].price);
+        (product.frappe[0].size[2].name).should.match(productObj5.size[2].name);
+        (product.frappe[0].size[2].price).should.match(productObj5.size[2].price);
+        (product.frappe[0].count).should.match(0);
+        (product.frappe[0].category).should.match(productObj5.category);
+        (product.frappe[1].name).should.match(productObj6.name);
+        (product.frappe[1].detail).should.match(productObj6.detail);
+        (product.frappe[1].image).should.match(productObj6.image);
+        (product.frappe[1].size[0].name).should.match(productObj6.size[0].name);
+        (product.frappe[1].size[0].price).should.match(productObj6.size[0].price);
+        (product.frappe[1].size[1].name).should.match(productObj6.size[1].name);
+        (product.frappe[1].size[1].price).should.match(productObj6.size[1].price);
+        (product.frappe[1].size[2].name).should.match(productObj6.size[2].name);
+        (product.frappe[1].size[2].price).should.match(productObj6.size[2].price);
+        (product.frappe[1].count).should.match(0);
+        (product.frappe[1].category).should.match(productObj6.category);
+        done();
+      });
+  });
+
   afterEach(function (done) {
     Product.remove().exec(done);
   });

@@ -111,6 +111,19 @@ exports.cookingData = function (req, res, next) {
       productCooking.frappe.push(element);
     }
   });
+
+  if (productCooking && productCooking.hot && productCooking.hot.length > 1) {
+    productCooking.hot.sort((a, b) => { return (a.count < b.count) ? 1 : ((b.count < a.count) ? -1 : 0); });
+  }
+
+  if (productCooking && productCooking.iced && productCooking.iced.length > 1) {
+    productCooking.iced.sort((a, b) => { return (a.count < b.count) ? 1 : ((b.count < a.count) ? -1 : 0); });
+  }
+
+  if (productCooking && productCooking.frappe && productCooking.frappe.length > 1) {
+    productCooking.frappe.sort((a, b) => { return (a.count < b.count) ? 1 : ((b.count < a.count) ? -1 : 0); });
+  }
+
   req.productCooking = productCooking;
   next();
 };
