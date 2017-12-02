@@ -63,7 +63,6 @@ describe('Product CRUD tests', function () {
         name: 'L',
         price: 60
       }],
-      count: 0,
       category: 'ร้อน',
     };
 
@@ -94,7 +93,7 @@ describe('Product CRUD tests', function () {
         (product.size[1].price).should.match(product.size[1].price);
         (product.size[2].name).should.match(product.size[2].name);
         (product.size[2].price).should.match(product.size[2].price);
-        (product.count).should.match(product.count);
+        (product.count).should.match(0);
         (product.category).should.match(product.category);
 
         // Call the assertion callback
@@ -134,19 +133,76 @@ describe('Product CRUD tests', function () {
 
         // Set assertions
         (product.hot.length).should.match(2);
-        // (product.name).should.match(product.name);
-        // (product.detail).should.match(product.detail);
-        // (product.image).should.match(product.image);
-        // (product.size[0].name).should.match(product.size[0].name);
-        // (product.size[0].price).should.match(product.size[0].price);
-        // (product.size[1].name).should.match(product.size[1].name);
-        // (product.size[1].price).should.match(product.size[1].price);
-        // (product.size[2].name).should.match(product.size[2].name);
-        // (product.size[2].price).should.match(product.size[2].price);
-        // (product.count).should.match(product.count);
-        // (product.category).should.match(product.category);
+        (product.hot[0].name).should.match(productObj.name);
+        (product.hot[0].detail).should.match(productObj.detail);
+        (product.hot[0].image).should.match(productObj.image);
+        (product.hot[0].size[0].name).should.match(productObj.size[0].name);
+        (product.hot[0].size[0].price).should.match(productObj.size[0].price);
+        (product.hot[0].size[1].name).should.match(productObj.size[1].name);
+        (product.hot[0].size[1].price).should.match(productObj.size[1].price);
+        (product.hot[0].size[2].name).should.match(productObj.size[2].name);
+        (product.hot[0].size[2].price).should.match(productObj.size[2].price);
+        (product.hot[0].count).should.match(0);
+        (product.hot[0].category).should.match(productObj.category);
+        (product.hot[1].name).should.match(productObj2.name);
+        (product.hot[1].detail).should.match(productObj2.detail);
+        (product.hot[1].image).should.match(productObj2.image);
+        (product.hot[1].size[0].name).should.match(productObj2.size[0].name);
+        (product.hot[1].size[0].price).should.match(productObj2.size[0].price);
+        (product.hot[1].size[1].name).should.match(productObj2.size[1].name);
+        (product.hot[1].size[1].price).should.match(productObj2.size[1].price);
+        (product.hot[1].size[2].name).should.match(productObj2.size[2].name);
+        (product.hot[1].size[2].price).should.match(productObj2.size[2].price);
+        (product.hot[1].count).should.match(0);
+        (product.hot[1].category).should.match(productObj2.category);
 
-        // Call the assertion callback
+        (product.iced.length).should.match(2);
+        (product.iced[0].name).should.match(productObj3.name);
+        (product.iced[0].detail).should.match(productObj3.detail);
+        (product.iced[0].image).should.match(productObj3.image);
+        (product.iced[0].size[0].name).should.match(productObj3.size[0].name);
+        (product.iced[0].size[0].price).should.match(productObj3.size[0].price);
+        (product.iced[0].size[1].name).should.match(productObj3.size[1].name);
+        (product.iced[0].size[1].price).should.match(productObj3.size[1].price);
+        (product.iced[0].size[2].name).should.match(productObj3.size[2].name);
+        (product.iced[0].size[2].price).should.match(productObj3.size[2].price);
+        (product.iced[0].count).should.match(0);
+        (product.iced[0].category).should.match(productObj3.category);
+        (product.iced[1].name).should.match(productObj4.name);
+        (product.iced[1].detail).should.match(productObj4.detail);
+        (product.iced[1].image).should.match(productObj4.image);
+        (product.iced[1].size[0].name).should.match(productObj4.size[0].name);
+        (product.iced[1].size[0].price).should.match(productObj4.size[0].price);
+        (product.iced[1].size[1].name).should.match(productObj4.size[1].name);
+        (product.iced[1].size[1].price).should.match(productObj4.size[1].price);
+        (product.iced[1].size[2].name).should.match(productObj4.size[2].name);
+        (product.iced[1].size[2].price).should.match(productObj4.size[2].price);
+        (product.iced[1].count).should.match(0);
+        (product.iced[1].category).should.match(productObj4.category);
+
+        (product.frappe.length).should.match(2);
+        (product.frappe[0].name).should.match(productObj5.name);
+        (product.frappe[0].detail).should.match(productObj5.detail);
+        (product.frappe[0].image).should.match(productObj5.image);
+        (product.frappe[0].size[0].name).should.match(productObj5.size[0].name);
+        (product.frappe[0].size[0].price).should.match(productObj5.size[0].price);
+        (product.frappe[0].size[1].name).should.match(productObj5.size[1].name);
+        (product.frappe[0].size[1].price).should.match(productObj5.size[1].price);
+        (product.frappe[0].size[2].name).should.match(productObj5.size[2].name);
+        (product.frappe[0].size[2].price).should.match(productObj5.size[2].price);
+        (product.frappe[0].count).should.match(0);
+        (product.frappe[0].category).should.match(productObj5.category);
+        (product.frappe[1].name).should.match(productObj6.name);
+        (product.frappe[1].detail).should.match(productObj6.detail);
+        (product.frappe[1].image).should.match(productObj6.image);
+        (product.frappe[1].size[0].name).should.match(productObj6.size[0].name);
+        (product.frappe[1].size[0].price).should.match(productObj6.size[0].price);
+        (product.frappe[1].size[1].name).should.match(productObj6.size[1].name);
+        (product.frappe[1].size[1].price).should.match(productObj6.size[1].price);
+        (product.frappe[1].size[2].name).should.match(productObj6.size[2].name);
+        (product.frappe[1].size[2].price).should.match(productObj6.size[2].price);
+        (product.frappe[1].count).should.match(0);
+        (product.frappe[1].category).should.match(productObj6.category);
         done();
       });
   });

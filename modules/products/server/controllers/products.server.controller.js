@@ -94,11 +94,24 @@ exports.list = function (req, res, next) {
 };
 
 exports.cookingData = function (req, res, next) {
-  req.productCooking = {
+  var productCooking = {
     hot: [],
     iced: [],
     frappe: []
   };
+
+  var products = req.products;
+
+  products.forEach(element => {
+    if (element.category === 'ร้อน') {
+      productCooking.hot.push(element);
+    } else if (element.category === 'เย็น') {
+      productCooking.iced.push(element);
+    } else {
+      productCooking.frappe.push(element);
+    }
+  });
+  req.productCooking = productCooking;
   next();
 };
 
