@@ -315,6 +315,57 @@ describe('Product CRUD tests', function () {
       });
   });
 
+  it('should be able to get popular Product list', function (done) {
+
+    var productObj = new Product(product);
+    productObj.count = 7;
+
+    productObj.save();
+    var data = {
+      _id: productObj.id,
+      name: productObj.name,
+      image: productObj.image,
+      size: 's',
+      qty: 3,
+      price: productObj.price,
+      amount: 200
+    };
+    agent.put('/api/productseller/' + data._id)
+      .send(data)
+      .expect(200)
+      .end(function (productSaveErr, productSaveRes) {
+        // Handle Product save error
+        if (productSaveErr) {
+          return done(productSaveErr);
+        }
+        agent.get('/api/products')
+          .end(function (productsGetErr, productsGetRes) {
+            // Handle Products save error
+            if (productsGetErr) {
+              return done(productsGetErr);
+            }
+
+            // Get Products list
+            var product = productsGetRes.body;
+
+            // Set assertions
+            (product.hot.length).should.match(1);
+            (product.hot[0].name).should.match(productObj.name);
+            (product.hot[0].detail).should.match(productObj.detail);
+            (product.hot[0].image).should.match(productObj.image);
+            (product.hot[0].size[0].name).should.match(productObj.size[0].name);
+            (product.hot[0].size[0].price).should.match(productObj.size[0].price);
+            (product.hot[0].size[1].name).should.match(productObj.size[1].name);
+            (product.hot[0].size[1].price).should.match(productObj.size[1].price);
+            (product.hot[0].size[2].name).should.match(productObj.size[2].name);
+            (product.hot[0].size[2].price).should.match(productObj.size[2].price);
+            (product.hot[0].count).should.match(10);
+            (product.hot[0].category).should.match(productObj.category);
+            done();
+          });
+      });
+  });
+
   afterEach(function (done) {
     Product.remove().exec(done);
   });

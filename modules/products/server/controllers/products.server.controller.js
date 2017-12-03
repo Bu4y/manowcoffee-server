@@ -155,3 +155,19 @@ exports.productByID = function (req, res, next, id) {
     next();
   });
 };
+
+
+exports.updateSeller = function (req, res) {
+  var qty = req.product.count ? req.product.count : 0;
+  qty += req.body.qty ? req.body.qty : 0;
+  req.product.count = qty;
+  req.product.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(req.product);
+    }
+  });
+};
